@@ -5,7 +5,7 @@ int successLed = 4;
 int relayPin = 2;
 int flashTime = 200; //LED Flash time
 int knockVal = 0;
-int knockThreshold = 65;
+int knockThreshold = 20;
 int relayTime = 250; // keep LOW or electronic lock will burn out!
 
 int numberOfKnocks = 2; //how many consecutive knocks
@@ -15,7 +15,7 @@ bool knockStart = false; // have knocks started;
 int knockCount = 0; //no. knocks registered
 int lastKnock; //time of last knock
 int currentTime;
-bool debug = false;
+bool debugOn = false;
 
 void setup() {
   // put your setup code here, to run once:
@@ -24,21 +24,28 @@ void setup() {
   pinMode(failLed,OUTPUT);
   pinMode(successLed,OUTPUT);
   pinMode(relayPin,OUTPUT);
-  if (debug)
+  if (debugOn)
   {
-    Serial.begin(9600);
+       Serial.begin(9600);
   }
+ 
 }
 
 void loop() {
 
   knockVal = analogRead(knockPin);
+  if (debugOn)
+  {
+      Serial.println(knockVal);
+  }
+  
   if (knockVal > knockThreshold)
   {
-    if (debug)
+    if (debugOn)
     {
       Serial.print("KnockVal: ");
       Serial.println(knockVal);
+     // delay(2000);
     }
     digitalWrite(knockLed,HIGH);
     delay(minTime);
@@ -53,7 +60,7 @@ void loop() {
        knockCount++;
        lastKnock = millis();
     }
-    if (debug)
+    if (debugOn)
     {
       Serial.println(lastKnock);
     }
