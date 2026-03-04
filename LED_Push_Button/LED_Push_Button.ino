@@ -7,27 +7,29 @@
 
 
 int switchPin = 25;
-int ledPin = 26;
+
 int switchVal;
+int prevVal
 void setup() {
   // put your setup code here, to run once:
-  pinMode(ledPin,OUTPUT);
+//  pinMode(ledPin,OUTPUT);
   pinMode(switchPin,INPUT_PULLUP);
   Serial.begin(9600);
+  Serial.println("starting");
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
   switchVal = digitalRead(switchPin);
-  //Serial.println(switchVal);
-
+  Serial.println(switchVal);
+  delay(100);
   if (switchVal ==1)
   {
-    digitalWrite(ledPin,HIGH);
+    //digitalWrite(ledPin,HIGH);
   }
   else
   {
-    digitalWrite(ledPin,LOW);
+    //digitalWrite(ledPin,LOW);
   }
 
 }
